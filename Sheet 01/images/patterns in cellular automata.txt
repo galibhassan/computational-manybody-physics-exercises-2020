@@ -1,0 +1,17 @@
+returns identity config
+0,8,32,40,64, 128
+
+black triangle 254
+fractal triangle 18, 82, 90, 126, 146, 150
+inverted fractal triangle 129, 182
+fractal half-triangle 60
+checkerboard triangle  50, 58
+tetris triangle 54
+left-lit piramyd 57
+vertical line 68
+sky behind pyramyd 73
+pyramid-triangle illusion 77
+pyramid with mario tower 147
+
+chaotic 30, 86,
+

@@ -79,7 +79,7 @@ def occupyGrid(grid, N):
                     grid[i-1][j-1], grid[i-1][j], grid[i-1][j+1], N)
 
 
-def showMatrixPlot(data):
+def generateMatrixPlot(data):
     nRow = data.shape[0]
     nCol = data.shape[1]
     cmap = matplotlib.colors.ListedColormap(['white', 'gray'])
@@ -92,4 +92,20 @@ def showMatrixPlot(data):
 
     # Gridlines based on minor ticks
     ax.grid(which='minor', color='#f5f4f4', linewidth=0.5)
+    return plt
+
+
+def showMatrixPlot(data):
+    plt = generateMatrixPlot(data)
     plt.show()
+
+
+def saveMatrixPlot(data, N, relPath):
+    plt = generateMatrixPlot(data)
+    # plt.show()
+
+    fname = f'{relPath}/Rule_{N}.png'
+    plt.savefig(fname, dpi=None, facecolor='w', edgecolor='w',
+                orientation='portrait', papertype=None, format=None,
+                transparent=False, bbox_inches=None, pad_inches=0.1,
+                metadata=None)

@@ -6,7 +6,13 @@ import numpy as np
 from src import ruleN
 
 # generate the rule N
-N = 2
+N = int(input('''
+
+    ---------------------------------
+    Enter the integer "N" for Rule N
+    ---------------------------------
+
+'''))
 
 # specifying grid size and defining grid
 NROW = 50
@@ -19,6 +25,9 @@ grid[0][60] = 1
 
 ruleN.occupyGrid(grid, N)
 
+# time dependence
+print(f'''
+Time dependence Rule {N} up to t = {NROW} iteration: ''')
 print(ruleN.getTimeDependence(grid))
 
 
