@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computational Manybody Physics Exercises</title>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+    </script>
+    <script
+      type="text/javascript"
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+    ></script>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(49, 49, 49);
+        background-color: rgb(158, 164, 170);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      code {
+        font-size: 1.3rem;
+        color: rgb(158, 52, 70);
+      }
+      .container {
+        margin-top: 50px;
+        width: 80%;
+      }
+      .function-def {
+        margin: 10px;
+      }
+      li {
+        margin-top: 20px;
+      }
+      .sheet-separator {
+        background-color: rgb(65, 80, 109);
+        width: 100%;
+        height: 50px;
+        margin-top: 50px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      .sheet {
+        margin-bottom: 100px;
+        margin-left: 0px;
+        margin-right: 0px;
+        background-color: white;
+        padding: 50px;
+      }
+      .execution {
+        box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <div>Galib Hassan</div>
+        <div>(6057349)</div>
+        <div>University of Cologne.</div>
+      </div>
+
+      <div class="sheet-separator"></div>
+      <div class="sheet">
+        <div>
+          All my solutions are available in this git repository:
+          <a href="https://github.com/galibhassan/computational-manybody-physics-exercises-2020"
+            >https://github.com/galibhassan/computational-manybody-physics-exercises-2020</a
+          >
+        </div>
+        <h2>Sheet 01</h2>
+        <h4>Exercise 1: Rule N</h4>
+        <p>(a)</p>
+        <div class="execution">
+          <h4>Execution</h4>
+
+          <li>
+            Clone the Git repo:
+            <code>git clone https://github.com/galibhassan/computational-manybody-physics-exercises-2020.git</code>
+          </li>
+          <li>
+            Navigate to the Sheet 01 directory and execute <code>python ./sheet01_main.py</code> and follow the
+            instructions there.
+          </li>
+          <li>
+            Executing <code>python ./generateUpToNRules.py</code> will generate Rule images iteratively and save them in
+            <code>/Sheet 01/images/</code> folder.
+          </li>
+        </div>
+        <div class="discussion">
+          <h4>Discussion</h4>
+
+          <p>
+            A python module , <b><code>ruleN.py</code></b> ( direct link:
+            <a
+              href="https://github.com/galibhassan/computational-manybody-physics-exercises-2020/blob/master/Sheet%2001/src/ruleN.py"
+              target="_blank"
+            >
+              here
+            </a>
+            ) has been written to solve this problem. Among the functions it exposes, the most notable ones are:
+          </p>
+          <ul>
+            <li>
+              <div class="function-def"><code>occupyGrid(grid: np.ndarray, N: int)</code></div>
+              <div>Here <code>grid</code> is a 2D numpy array that represents the cells.</div>
+              <div>The integer N represents the N-th rule, $ 0 < n < 255 $</div>
+              <div><b>Returns</b> <code>void</code></div>
+              This function, upon execution, occupies the <code>grid</code> with $0$s or $1$s according to the
+              <i>rule</i>.
+            </li>
+            <li>
+              <div class="function-def">
+                <code>showMatrixPlot(grid: np.ndarray)</code>, <b>Returns</b> <code>void</code>
+              </div>
+              <div>Shows the occupied grid.</div>
+            </li>
+
+            <li>
+              <div class="function-def">
+                <code>saveMatrixPlot(data: grid, N: int, relPath: string)</code> <b>Returns</b> <code>void</code>
+              </div>
+              <div>
+                Iterates up to <code>N</code> number of times and generates images of 0 to N Rule, then saves into the
+                given relative path (e.g. <code>'./images/'</code> )
+              </div>
+            </li>
+          </ul>
+
+          <div>The checking of which cell should be occupied is done in <code>occupyGrid(grid, N)</code> function.</div>
+        </div>
+        <div class="results">
+          <h4>Results</h4>
+          The following image is found corresponding to <code>Rule 30</code>
+
+          <img
+            src="https://raw.githubusercontent.com/galibhassan/computational-manybody-physics-exercises-2020/master/Sheet%2001/images/Rule_30.png"
+            alt="Rule_30.png"
+          />
+        </div>
+
+        <div>(b)</div>
+        <p>
+          Using <code>getTimeDependence(grid: np.ndarray)</code> function from the module, we calculate the time
+          dependence $\sum z_i(t) = 1283 $ for 59 iteration.
+        </p>
+
+        <p>(c)</p>
+        Most of the powers of 2 (i.e. $2^n$, $n = 3,5,6,7$) revealed identity operations returning the same
+        configuaration. However, <i>Rule 0</i> and <i>Rule 40</i> also returned the same configuaration.
+      </div>
+
+      <div class="sheet-separator"></div>
+    </div>
+  </body>
+</html>

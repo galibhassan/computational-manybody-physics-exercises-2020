@@ -39,6 +39,7 @@ def getRule(decNum):
 
 
 def dec_to_bin(x):
+    # copied from: https://stackoverflow.com/questions/3528146/convert-decimal-to-binary-in-python/#answer-11890306
     return bin(x)[2:]
 
 
