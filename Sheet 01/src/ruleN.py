@@ -98,7 +98,7 @@ def generateMatrixPlot(data):
     ax.set_yticks(np.arange(0.5, nRow, 1), minor=True)
 
     # Gridlines based on minor ticks
-    ax.grid(which='minor', color='#f5f4f4', linewidth=0.5)
+    ax.grid(which='minor', color='#383838', linewidth=0.5)
     return plt
 
 

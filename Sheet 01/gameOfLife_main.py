@@ -100,27 +100,32 @@ def GOLTimeEvolution(grid3D):
                 neighboursAlive = getMooreNbd(i, j, currentGrid2D)[
                     "neighboursAlive"]
 
-                if(neighboursAlive == 3):  # strictly 3
-                    nextGrid2D[i][j] = 1
+                if currentGrid2D[i][j] == 1:
+                    if neighboursAlive == 2 or neighboursAlive == 3:
+                        nextGrid2D[i][j] = 1
+                    else:
+                        nextGrid2D[i][j] = 0
                 else:
-                    nextGrid2D[i][j] = 0
+                    if(neighboursAlive == 3):  # strictly 3
+                        nextGrid2D[i][j] = 1
+                    else:
+                        nextGrid2D[i][j] = 0
 
 
 # test ------------
-TMAX = 5
-NROW = 5
-NCOL = 4
+TMAX = 30
+NROW = 20
+NCOL = 20
 
 # GOL stands for Game Of Life
 GOLGrid = np.ndarray([TMAX, NROW, NCOL], dtype=int)*0
 
 # initialization
-GOLGrid[0][0][0] = 1
-GOLGrid[0][1][0] = 1
-GOLGrid[0][1][1] = 1
+GOLGrid[0][1][2] = 1
 GOLGrid[0][2][3] = 1
-GOLGrid[0][2][2] = 1
-GOLGrid[0][2][2] = 1
+GOLGrid[0][3][1] = 1
+GOLGrid[0][3][2] = 1
+GOLGrid[0][3][3] = 1
 
 
 # print(getNeighboursAlive2D(1, 1, GOLGrid[0][:][:]))
