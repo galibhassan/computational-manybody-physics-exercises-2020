@@ -73,9 +73,15 @@ def getOccupation(a, b, c, N):
 
 def occupyGrid(grid, N):
     for i in range(grid.shape[0]):
+        # skip the first row
+        if i == 0:
+            continue
+
         for j in range(grid.shape[1]):
-            if i > 0 and i < grid.shape[0]-1 and j > 0 and j < grid.shape[1]-1:
-                # only interior
+
+            # only interior
+            # if i > 0 and i < grid.shape[0]-1 and j > 0 and j < grid.shape[1]-1:
+            if i > 0 and j > 0 and j < grid.shape[1]-1:
                 grid[i][j] = getOccupation(
                     grid[i-1][j-1], grid[i-1][j], grid[i-1][j+1], N)
 

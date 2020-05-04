@@ -24,6 +24,11 @@
         justify-content: center;
         align-items: center;
       }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        text-align: cent;
+      }
       code {
         font-size: 1.3rem;
         color: rgb(158, 52, 70);
@@ -115,7 +120,8 @@
               <div>The integer N represents the N-th rule, $ 0 < n < 255 $</div>
               <div><b>Returns</b> <code>void</code></div>
               This function, upon execution, occupies the <code>grid</code> with $0$s or $1$s according to the
-              <i>rule</i>.
+              <i>rule</i>. It skips the boundaries (e.g. first column, last column), since for the cells in the boundary
+              columns, there are only two arguments from the previous row to evaluate.
             </li>
             <li>
               <div class="function-def">
@@ -150,12 +156,15 @@
         <div>(b)</div>
         <p>
           Using <code>getTimeDependence(grid: np.ndarray)</code> function from the module, we calculate the time
-          dependence $\sum z_i(t) = 1283 $ for 59 iteration.
+          dependence $\sum z_i(t) = 1336 $ for 50 iteration.
         </p>
 
         <p>(c)</p>
-        Most of the powers of 2 (i.e. $2^n$, $n = 3,5,6,7$) revealed identity operations returning the same
-        configuaration. However, <i>Rule 0</i> and <i>Rule 40</i> also returned the same configuaration.
+        <div>
+          Given this initial configuaration $z_{(i=0,j=60)}(t=0) = ocuupied$, the rules returning same configuaration
+          would produce a vertical line figure. Thes, rules of $4, 12, 36, 44,68, 76, 100, 108, 132, 140, 164, 172, 196,
+          204, 228, 236$ yield the same configuaration.
+        </div>
       </div>
 
       <div class="sheet-separator"></div>
