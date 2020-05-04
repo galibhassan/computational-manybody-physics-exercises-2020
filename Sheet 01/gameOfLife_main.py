@@ -1,32 +1,6 @@
 import numpy as np
 from src import ruleN
-
-
-# periodic boundary condition:
-
-
-def getNeighboursAlive2D(i, j, grid2D):
-    aliveNeighboursCount = 0
-    if grid2D[i-1][j-1] == 1:
-        aliveNeighboursCount += 1
-    if grid2D[i-1][j] == 1:
-        aliveNeighboursCount += 1
-    if grid2D[i-1][j+1] == 1:
-        aliveNeighboursCount += 1
-    # -----------------------------
-    if grid2D[i][j-1] == 1:
-        aliveNeighboursCount += 1
-    if grid2D[i][j+1] == 1:
-        aliveNeighboursCount += 1
-    # -----------------------------
-    if grid2D[i+1][j-1] == 1:
-        aliveNeighboursCount += 1
-    if grid2D[i+1][j] == 1:
-        aliveNeighboursCount += 1
-    if grid2D[i+1][j+1] == 1:
-        aliveNeighboursCount += 1
-
-    return aliveNeighboursCount
+OUTPUT_PATH = './images/GameOfLife'
 
 
 def applyPBC(i, j, grid2D):
@@ -68,8 +42,6 @@ def getMooreNbdValues2D(i, j, grid2D):
     for k in range(len(mooreNbdIndices)):
         _i = mooreNbdIndices[k][0]
         _j = mooreNbdIndices[k][1]
-        # mooreNbdValues.insert(grid2D[_i][_j])
-        # np.insert(mooreNbdValues, 1, grid2D[_i][_j])
         mooreNbdValues[k] = grid2D[_i][_j]
     return mooreNbdValues
 
@@ -92,7 +64,7 @@ def GOLTimeEvolution(grid3D):
         nextGrid2D = grid3D[t+1][:][:]
 
         # saving currentGrid image
-        ruleN.saveMatrixPlot(currentGrid2D, t, './images/GameOfLife')
+        ruleN.saveMatrixPlot(currentGrid2D, t, OUTPUT_PATH, "GameOfLife")
 
         for i in range(nRow):
             for j in range(nCol):
@@ -112,30 +84,73 @@ def GOLTimeEvolution(grid3D):
                         nextGrid2D[i][j] = 0
 
 
-# test ------------
-TMAX = 30
-NROW = 20
-NCOL = 20
+def makeGOLGridAndInit(NROW, NCOL, TMAX, alivePairs):
+    # alivePairs are of the form [[i1,j1], [i2,j2], ...]
 
-# GOL stands for Game Of Life
-GOLGrid = np.ndarray([TMAX, NROW, NCOL], dtype=int)*0
+    GOLGrid = np.ndarray([TMAX, NROW, NCOL], dtype=int)*0
 
-# initialization
-GOLGrid[0][1][2] = 1
-GOLGrid[0][2][3] = 1
-GOLGrid[0][3][1] = 1
-GOLGrid[0][3][2] = 1
-GOLGrid[0][3][3] = 1
+    for k in range(len(alivePairs)):
+        _i = alivePairs[k][0]
+        _j = alivePairs[k][1]
+
+        GOLGrid[0][_i][_j] = 1
+
+    return GOLGrid
 
 
-# print(getNeighboursAlive2D(1, 1, GOLGrid[0][:][:]))
-# print(applyPBC(-1, -1, GOLGrid[0][:][:]))
-# print(getMooreNbdIndices2D(1, 0, GOLGrid[0][:][:]))
-# print(getMooreNbdValues2D(1, 0, GOLGrid[0][:][:]))
-# print(getMooreNbdValues2D(1, 0, GOLGrid[0][:][:]))
+def main():
+    TMAX = 200
+    NROW = 20
+    NCOL = 20
 
-GOLTimeEvolution(GOLGrid)
+    alivePairsGlider = [
+        # pairs for Glider pattern
+        [1, 2],
+        [2, 3],
+        [3, 1],
+        [3, 2],
+        [3, 3]
+    ]
 
-print(GOLGrid)
+    alivePairsBox = [
+        # pairs for Glider pattern
+        [11, 11],
+        [11, 12],
+        [12, 11],
+        [12, 12]
 
-# ruleN.showMatrixPlot(GOLGrid[0][:][:])
+    ]
+    alivePairsDimond = [
+        # pairs for Glider pattern
+        [1, 2],
+        [2, 1],
+        [2, 3],
+        [3, 2]
+    ]
+    alivePairsHorizontalLine = [
+        # pairs for Glider pattern
+        [10, 10],
+        [10, 11],
+        [10, 12],
+    ]
+    alivePairsInvertedZ = [
+        # pairs for Glider pattern
+        [10, 11],
+        [10, 12],
+        [10, 13],
+        [11, 9],
+        [11, 10],
+        [11, 11],
+    ]
+
+    GOLGrid = makeGOLGridAndInit(NROW, NCOL, TMAX, alivePairsInvertedZ)
+    GOLTimeEvolution(GOLGrid)
+
+
+main()
+
+
+print('------------------------------------')
+print("The output images can be found in: ")
+print(OUTPUT_PATH)
+print('------------------------------------')

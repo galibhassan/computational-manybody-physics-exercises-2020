@@ -19,5 +19,4 @@ grid[0][60] = 1
 
 for N in range(NLimit):
     ruleN.occupyGrid(grid, N)
-    # ruleN.showMatrixPlot(grid, N))
-    ruleN.saveMatrixPlot(grid, N, './images/RuleNImages')
+    ruleN.saveMatrixPlot(grid, N, './images/RuleNImages', "Rule")

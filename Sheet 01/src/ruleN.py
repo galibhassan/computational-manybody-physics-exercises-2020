@@ -107,11 +107,11 @@ def showMatrixPlot(data):
     plt.show()
 
 
-def saveMatrixPlot(data, N, relPath):
+def saveMatrixPlot(data, N, relPath, fileName):
     plt = generateMatrixPlot(data)
     # plt.show()
 
-    fname = f'{relPath}/Rule_{N}.png'
+    fname = f'{relPath}/{fileName}_{N}.png'
     plt.savefig(fname, dpi=None, facecolor='w', edgecolor='w',
                 orientation='portrait', papertype=None, format=None,
                 transparent=False, bbox_inches=None, pad_inches=0.1,
