@@ -54,10 +54,18 @@ def getMooreNbd(i, j, grid2D):
     }
 
 
+def getLiveCellCount2D(grid2D):
+    return grid2D.sum()
+
+
 def GOLTimeEvolution(grid3D):
     nSurf = grid3D.shape[0]
     nRow = grid3D.shape[1]
     nCol = grid3D.shape[2]
+
+    # for problem 2(c)
+    liveCellCount = 0
+    # --------------------
 
     for t in range(nSurf-1):
         currentGrid2D = grid3D[t][:][:]
@@ -65,6 +73,7 @@ def GOLTimeEvolution(grid3D):
 
         # saving currentGrid image
         ruleN.saveMatrixPlot(currentGrid2D, t, OUTPUT_PATH, "GameOfLife")
+        liveCellCount += getLiveCellCount2D(currentGrid2D)
 
         for i in range(nRow):
             for j in range(nCol):
@@ -83,6 +92,10 @@ def GOLTimeEvolution(grid3D):
                     else:
                         nextGrid2D[i][j] = 0
 
+    print(f'''
+        Number of live Cells in the whole time evolution: {liveCellCount} (in {nSurf} timesteps).
+    ''')
+
 
 def makeGOLGridAndInit(NROW, NCOL, TMAX, alivePairs):
     # alivePairs are of the form [[i1,j1], [i2,j2], ...]
@@ -99,12 +112,11 @@ def makeGOLGridAndInit(NROW, NCOL, TMAX, alivePairs):
 
 
 def main():
-    TMAX = 200
+    TMAX = 5
     NROW = 20
     NCOL = 20
 
     alivePairsGlider = [
-        # pairs for Glider pattern
         [1, 2],
         [2, 3],
         [3, 1],
@@ -113,7 +125,6 @@ def main():
     ]
 
     alivePairsBox = [
-        # pairs for Glider pattern
         [11, 11],
         [11, 12],
         [12, 11],
@@ -121,20 +132,17 @@ def main():
 
     ]
     alivePairsDimond = [
-        # pairs for Glider pattern
         [1, 2],
         [2, 1],
         [2, 3],
         [3, 2]
     ]
     alivePairsHorizontalLine = [
-        # pairs for Glider pattern
         [10, 10],
         [10, 11],
         [10, 12],
     ]
     alivePairsInvertedZ = [
-        # pairs for Glider pattern
         [10, 11],
         [10, 12],
         [10, 13],
@@ -142,8 +150,17 @@ def main():
         [11, 10],
         [11, 11],
     ]
+    alivePairsDieHard = [
+        [10, 10],
+        [10, 11],
+        [11, 11],
+        [9, 16],
+        [11, 15],
+        [11, 16],
+        [11, 17],
+    ]
 
-    GOLGrid = makeGOLGridAndInit(NROW, NCOL, TMAX, alivePairsInvertedZ)
+    GOLGrid = makeGOLGridAndInit(NROW, NCOL, TMAX, alivePairsDieHard)
     GOLTimeEvolution(GOLGrid)
 
 
