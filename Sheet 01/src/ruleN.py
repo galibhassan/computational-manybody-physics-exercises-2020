@@ -88,6 +88,9 @@ def occupyGrid(grid, N):
 
 def generateMatrixPlot(data):
     nRow = data.shape[0]
+    if data.shape == None:
+        nCol = 1
+
     nCol = data.shape[1]
     cmap = matplotlib.colors.ListedColormap(['white', 'gray'])
     plt.matshow(data, cmap=cmap)
