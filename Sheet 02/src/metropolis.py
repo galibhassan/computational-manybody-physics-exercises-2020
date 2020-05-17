@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def getMarkovChain(x, targetFunc):
+def getMarkovChain(x, targetFunc, removeUnchanged):
     '''
     __doc__
         x: a numpy array of numbers
@@ -16,6 +16,7 @@ def getMarkovChain(x, targetFunc):
         if i == 0:
             markovX.append(init)
         else:
+
             current = markovX[i-1]
             proposed = np.random.normal(current, 1)
 
@@ -28,5 +29,8 @@ def getMarkovChain(x, targetFunc):
             else:
                 # reject proposed
                 markovX.append(current)
+
+    if removeUnchanged == True:
+        return np.unique(markovX)
 
     return markovX

@@ -4,11 +4,7 @@ from src import metropolis
 
 
 def weightFunc(x):
-    '''
-        The gaussian form is taken from the exercise
-    '''
-    # return (1/np.sqrt(np.pi)) * np.exp(-x**2)
-    return np.exp(-x**2)
+    return (1/np.sqrt(np.pi)) * np.exp(-x**2)
 
 
 # test
@@ -16,15 +12,33 @@ minX = -3
 maxX = 3
 x = np.arange(minX, maxX, 0.001)
 # plt.plot(x, weightFunc(x))
-markovChain = metropolis.getMarkovChain(x, weightFunc)
+markovChain_unchangedXIncluded = metropolis.getMarkovChain(
+    x, weightFunc,
+    removeUnchanged=False
+)
+markovChain_unchangedXRemoved = metropolis.getMarkovChain(
+    x, weightFunc, removeUnchanged=True)
 
-print(len(x))
-print(len(markovChain))
-print(np.sum(markovChain)/len(x))
+# used for manually adjusting the fitting curve, NOT to be taken as a regression
+scaleFactor = 350
 
-
-# plt.scatter(x, markovChain)
-plt.hist(markovChain, range=(minX, maxX),  bins=50)
-scaleFactor = 400
+plt.subplot(1, 2, 1)
+plt.title('Duplicate values in markov chains included')
+plt.ylabel('Count')
+plt.hist(markovChain_unchangedXIncluded, range=(minX, maxX),  bins=100)
 plt.plot(x, weightFunc(x)*scaleFactor)
+
+# used for manually adjusting the fitting curve, NOT to be taken as a regression
+scaleFactor = 200
+
+plt.ylim(0, 300)
+plt.subplot(1, 2, 2)
+plt.title('Duplicate values in markov chains removed')
+plt.hist(markovChain_unchangedXRemoved, range=(minX, maxX),  bins=100)
+plt.plot(x, weightFunc(x)*scaleFactor)
+
+
+plt.ylim(0, 300)
+plt.xlabel('x')
+plt.ylabel('Count')
 plt.show()
